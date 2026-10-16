@@ -1,0 +1,20 @@
+{
+  "name": "visualforge",
+  "version": "0.1.0-alpha.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @visualforge/gallery",
+    "build": "npm run build -w @visualforge/gallery",
+    "test": "vitest run",
+    "typecheck": "tsc -p apps/gallery/tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
