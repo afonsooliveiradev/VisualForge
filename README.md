@@ -1,5 +1,7 @@
 # VisualForge
 
+**Language / Idioma:** English | [Português (Brasil)](README.pt-BR.md)
+
 **Build. Visualize. Reuse.**
 
 VisualForge is an open-source React component library for dashboards and data visualization, built with TypeScript and Recharts.
@@ -105,3 +107,9 @@ Issues, feedback, and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUT
 ## License
 
 [MIT](LICENSE).
+
+## Documentation and community
+
+- [Component API (English)](docs/components.md) / [API (Português)](docs/pt-BR/components.md)
+- [Getting started (Português)](docs/pt-BR/getting-started.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md) | [Security Policy](SECURITY.md)
