@@ -1,5 +1,7 @@
 # Contributing to VisualForge
 
+**Language / Idioma:** English | [Português (Brasil)](CONTRIBUTING.pt-BR.md)
+
 Thank you for helping improve VisualForge, an open-source React and TypeScript component library for dashboards and data visualization.
 
 ## Before contributing
