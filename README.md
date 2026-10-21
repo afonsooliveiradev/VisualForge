@@ -2,23 +2,29 @@
 
 **Build. Visualize. Reuse.**
 
-Open-source React component library for dashboards and data visualization.
+VisualForge is an open-source React component library for dashboards and data visualization, built with TypeScript and Recharts.
+
+> **Alpha release:** `v0.1.0-alpha.0`. The library is under active development and is **not yet published to npm**. The examples below run inside this repository's npm workspace.
 
 ## Components
 
-| Component | Description |
-|---|---|
-| `KpiCard` | Metric card with value, change and description |
-| `BarChart` | Responsive bar chart |
-| `LineChart` | Responsive line chart |
+| Component | Purpose |
+| --- | --- |
+| `KpiCard` | Present key performance indicators |
+| `BarChart` | Compare values across categories |
+| `LineChart` | Display trends |
+| `AreaChart` | Show trends and magnitude |
+| `DonutChart` | Display composition and proportions |
+| `StackedBarChart` | Compare multiple series per category |
 
-## Tech Stack
+Explore all six component types in **VisualForge Studio**, the interactive gallery in `apps/gallery`.
 
-React 19 · TypeScript · Vite · Recharts · Vitest · npm Workspaces
+## Requirements
 
-## Getting Started
+- Node.js 24
+- npm 11
 
-Requirements: Node.js 24 and npm 11.
+## Run locally
 
 ```bash
 git clone https://github.com/afonsooliveiradev/VisualForge.git
@@ -27,40 +33,57 @@ npm ci
 npm run dev
 ```
 
-Open the local address displayed by Vite.
+Open the local URL printed by Vite.
 
-## Example
+## Example (inside the workspace)
 
 ```tsx
-import { KpiCard, BarChart, LineChart } from "@visualforge/react";
+import { KpiCard, BarChart, DonutChart, StackedBarChart } from '@visualforge/react';
 
-const data = [
-  { name: "Jan", value: 42 },
-  { name: "Feb", value: 58 },
-  { name: "Mar", value: 76 },
+const monthly = [
+  { name: 'Jan', value: 42 },
+  { name: 'Feb', value: 58 },
+  { name: 'Mar', value: 76 },
+];
+
+const segments = [
+  { name: 'Products', value: 65 },
+  { name: 'Services', value: 35 },
+];
+
+const channels = [
+  { name: 'Jan', online: 30, offline: 12 },
+  { name: 'Feb', online: 42, offline: 18 },
 ];
 
 export function Dashboard() {
   return (
-    <>
+    <div>
       <KpiCard title="Revenue" value="$128,450" change="+12.8%" />
-      <BarChart data={data} />
-      <LineChart data={data} />
-    </>
+      <BarChart data={monthly} />
+      <DonutChart data={segments} />
+      <StackedBarChart
+        data={channels}
+        series={[
+          { dataKey: 'online', name: 'Online' },
+          { dataKey: 'offline', name: 'Offline' },
+        ]}
+      />
+    </div>
   );
 }
 ```
 
-The components currently work through the repository's local npm workspace. The library is not yet published to the npm registry.
+## Repository structure
 
-## Project Structure
+```text
+apps/gallery/      VisualForge Studio
+packages/react/    Reusable React components
+docs/              Architecture and technical documentation
+examples/          Integration examples
+```
 
-- `apps/gallery` — interactive gallery
-- `packages/react` — reusable components
-- `docs` — architecture documentation
-- `examples` — integration examples
-
-## Quality Checks
+## Quality checks
 
 ```bash
 npm run typecheck
@@ -69,10 +92,16 @@ npm run build
 npm audit
 ```
 
-## Status
+## Current limitations
 
-**v0.1.0-alpha.0** — Early development release.
+- `@visualforge/react` is currently a private workspace package and cannot be installed from the npm registry.
+- Package exports currently reference TypeScript source files; a distributable JavaScript build and declaration files are not yet configured.
+- Component APIs, accessibility, and test coverage are evolving during the alpha phase.
 
-## Contributing and License
+## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE](LICENSE).
+Issues, feedback, and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE).
