@@ -1,3 +1,4 @@
+import { filterStackedChartData } from "../utils/stackedChartData";
 import * as React from "react";
 import {
   Bar, BarChart as RechartsBarChart, CartesianGrid,
@@ -21,11 +22,12 @@ export interface StackedBarChartProps {
 const COLORS = ["#2563EB", "#22D3EE", "#8B5CF6", "#34D399", "#FBBF24"];
 
 export function StackedBarChart({ data, series, height = 280 }: StackedBarChartProps) {
-  if (!data.length || !series.length) return <div role="status">No data available</div>;
+  const validData = filterStackedChartData(data, series);
+  if (!validData.length || !series.length) return <div role="status">No data available</div>;
   return (
     <div style={{ width: "100%", height, minWidth: 0 }}>
       <ResponsiveContainer width="100%" height="100%">
-        <RechartsBarChart data={data} accessibilityLayer>
+        <RechartsBarChart data={validData} accessibilityLayer>
           <CartesianGrid stroke="#334155" strokeDasharray="3 3" />
           <XAxis dataKey="name" stroke="#94A3B8" />
           <YAxis stroke="#94A3B8" />

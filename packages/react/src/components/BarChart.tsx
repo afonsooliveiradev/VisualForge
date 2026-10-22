@@ -1,4 +1,6 @@
-﻿import {
+import { filterFiniteValues } from "../utils/chartData";
+import * as React from "react";
+import {
   BarChart as RechartsBarChart,
   Bar,
   CartesianGrid,
@@ -24,10 +26,12 @@ export function BarChart({
   height = 280,
   color = "#2563EB",
 }: BarChartProps) {
+  const validData = filterFiniteValues(data);
+  if (!validData.length) return <div role="status">No data available</div>;
   return (
     <div style={{ width: "100%", height, minWidth: 0 }}>
       <ResponsiveContainer width="100%" height="100%">
-        <RechartsBarChart data={data} accessibilityLayer>
+        <RechartsBarChart data={validData} accessibilityLayer>
           <CartesianGrid stroke="#334155" strokeDasharray="3 3" />
           <XAxis dataKey="name" stroke="#94A3B8" />
           <YAxis stroke="#94A3B8" />
