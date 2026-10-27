@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { KpiCard, BarChart, LineChart, AreaChart, DonutChart, StackedBarChart } from "@visualforge/react";
+import { Suspense, useState } from "react";
+import { KpiCard } from "@visualforge/react";
+import { BarChart, LineChart, AreaChart, DonutChart, StackedBarChart } from "./LazyCharts";
 import "./styles/studio.css";
 
 type Category = "all" | "metrics" | "charts";
@@ -138,6 +139,7 @@ export default function App() {
             </section>}
             {hasCharts && <section className="vf-section">
               <div className="vf-section-heading"><div><h3>Data Visualizations</h3><p>Reusable charts for business analytics</p></div><span>CHARTS</span></div>
+              <Suspense fallback={<div role="status" aria-live="polite">Loading charts...</div>}>
               <div className="vf-chart-grid">
                 {has("bar") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>COMPARISON</small><h4>Bar Chart</h4><p>Monthly performance</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><BarChart data={chartData} accessibilityLabel="Monthly performance bar chart" accessibilityDescription="Comparison of monthly performance values." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
                 {has("area") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>TIME SERIES</small><h4>Area Chart</h4><p>Volume and performance trend</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><AreaChart data={chartData} accessibilityLabel="Monthly performance area chart" accessibilityDescription="Area visualization of the performance trend over time." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
@@ -145,6 +147,7 @@ export default function App() {
                 {has("stacked") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>COMPOSITION</small><h4>Stacked Bar Chart</h4><p>Channels by month</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><StackedBarChart data={stackedData} series={stackedSeries} accessibilityLabel="Monthly channel composition chart" accessibilityDescription="Stacked comparison of channels by month." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
                 {has("line") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>TIME SERIES</small><h4>Line Chart</h4><p>Performance trend</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><LineChart data={chartData} accessibilityLabel="Monthly performance line chart" accessibilityDescription="Line visualization of the performance trend over time." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
               </div>
+              </Suspense>
             </section>}
           </>}
           <footer className="vf-footer"><span>VisualForge - Open Source Component Library</span><span>Built with React & TypeScript</span></footer>
