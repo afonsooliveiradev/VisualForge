@@ -1,4 +1,7 @@
-﻿import {
+import { ChartAccessibility } from "./ChartAccessibility";
+import { filterFiniteValues } from "../utils/chartData";
+import * as React from "react";
+import {
   LineChart as RechartsLineChart,
   Line,
   CartesianGrid,
@@ -12,6 +15,8 @@ import type { ChartDataPoint } from "./BarChart";
 export interface LineChartProps {
   data: ChartDataPoint[];
   height?: number;
+  accessibilityLabel?: string;
+  accessibilityDescription?: string;
   color?: string;
 }
 
@@ -19,11 +24,21 @@ export function LineChart({
   data,
   height = 280,
   color = "#22D3EE",
+  accessibilityLabel,
+  accessibilityDescription,
 }: LineChartProps) {
+  const validData = filterFiniteValues(data);
+  const empty = validData.length === 0;
   return (
-    <div style={{ width: "100%", height, minWidth: 0 }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <RechartsLineChart data={data} accessibilityLayer>
+    <ChartAccessibility
+      label={accessibilityLabel}
+      description={accessibilityDescription}
+      height={height}
+      empty={empty}
+    >
+      {!empty && (
+        <ResponsiveContainer width="100%" height="100%">
+        <RechartsLineChart data={validData} accessibilityLayer>
           <CartesianGrid stroke="#334155" strokeDasharray="3 3" />
           <XAxis dataKey="name" stroke="#94A3B8" />
           <YAxis stroke="#94A3B8" />
@@ -37,6 +52,7 @@ export function LineChart({
           />
         </RechartsLineChart>
       </ResponsiveContainer>
-    </div>
+      )}
+    </ChartAccessibility>
   );
 }

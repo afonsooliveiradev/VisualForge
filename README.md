@@ -8,6 +8,26 @@ VisualForge is an open-source React component library for dashboards and data vi
 
 > **Alpha release:** `v0.1.0-alpha.0`. The library is under active development and is **not yet published to npm**. The examples below run inside this repository's npm workspace.
 
+## Visual Showcase
+
+Explore VisualForge Studio, the interactive gallery showcasing reusable React components for modern dashboards.
+
+### Studio Overview
+
+![VisualForge Studio overview](docs/screenshots/gallery-overview.png)
+
+### Charts Showcase
+
+Explore bar, line, area, donut, and stacked bar charts.
+
+![VisualForge charts showcase](docs/screenshots/charts-showcase.png)
+
+### Metrics & KPIs
+
+Build executive dashboards with reusable KPI cards.
+
+![VisualForge metrics and KPIs](docs/screenshots/metrics-showcase.png)
+
 ## Components
 
 | Component | Purpose |
