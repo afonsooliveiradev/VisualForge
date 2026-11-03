@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { BaseChartProps } from "../types/chart";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { ChartAccessibility } from "./ChartAccessibility";
 
@@ -7,13 +8,10 @@ export interface DonutDataPoint {
   value: number;
 }
 
-export interface DonutChartProps {
+export interface DonutChartProps extends BaseChartProps {
   data: DonutDataPoint[];
-  height?: number;
   colors?: string[];
   showLegend?: boolean;
-  accessibilityLabel?: string;
-  accessibilityDescription?: string;
 }
 
 const DEFAULT_COLORS = ["#22D3EE", "#2563EB", "#8B5CF6", "#34D399", "#FBBF24", "#FB7185"];

@@ -1,5 +1,6 @@
 import { filterStackedChartData } from "../utils/stackedChartData";
 import * as React from "react";
+import type { BaseChartProps } from "../types/chart";
 import {
   Bar, BarChart as RechartsBarChart, CartesianGrid,
   Legend, ResponsiveContainer, Tooltip, XAxis, YAxis,
@@ -17,12 +18,9 @@ export interface StackedBarSeries {
   color?: string;
 }
 
-export interface StackedBarChartProps {
+export interface StackedBarChartProps extends BaseChartProps {
   data: StackedBarDataPoint[];
   series: StackedBarSeries[];
-  height?: number;
-  accessibilityLabel?: string;
-  accessibilityDescription?: string;
 }
 
 const COLORS = ["#2563EB", "#22D3EE", "#8B5CF6", "#34D399", "#FBBF24"];

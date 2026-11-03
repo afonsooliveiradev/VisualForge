@@ -5,14 +5,12 @@ import {
   ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
 import type { ChartDataPoint } from "./BarChart";
+import type { BaseChartProps } from "../types/chart";
 import { ChartAccessibility } from "./ChartAccessibility";
 
-export interface AreaChartProps {
+export interface AreaChartProps extends BaseChartProps {
   data: ChartDataPoint[];
-  height?: number;
   color?: string;
-  accessibilityLabel?: string;
-  accessibilityDescription?: string;
 }
 
 export function AreaChart({

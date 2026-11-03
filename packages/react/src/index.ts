@@ -18,3 +18,7 @@ export { DonutChart } from "./components/DonutChart";
 export type { DonutChartProps, DonutDataPoint } from "./components/DonutChart";
 export { StackedBarChart } from "./components/StackedBarChart";
 export type { StackedBarChartProps, StackedBarDataPoint, StackedBarSeries } from "./components/StackedBarChart";
+
+export { ScatterChart } from "./components/ScatterChart";
+export type { ScatterChartProps } from "./components/ScatterChart";
+export type { ScatterDataPoint } from "./types/chart";

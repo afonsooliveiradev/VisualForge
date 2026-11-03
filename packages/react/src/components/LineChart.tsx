@@ -11,12 +11,10 @@ import {
   YAxis,
 } from "recharts";
 import type { ChartDataPoint } from "./BarChart";
+import type { BaseChartProps } from "../types/chart";
 
-export interface LineChartProps {
+export interface LineChartProps extends BaseChartProps {
   data: ChartDataPoint[];
-  height?: number;
-  accessibilityLabel?: string;
-  accessibilityDescription?: string;
   color?: string;
 }
 
