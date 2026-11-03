@@ -1,5 +1,6 @@
 import * as React from "react";
 import { filterFiniteValues } from "../utils/chartData";
+import type { BaseChartProps, CartesianDataPoint } from "../types/chart";
 import { ChartAccessibility } from "./ChartAccessibility";
 import {
   BarChart as RechartsBarChart,
@@ -11,17 +12,11 @@ import {
   YAxis,
 } from "recharts";
 
-export interface ChartDataPoint {
-  name: string;
-  value: number;
-}
+export type ChartDataPoint = CartesianDataPoint;
 
-export interface BarChartProps {
+export interface BarChartProps extends BaseChartProps {
   data: ChartDataPoint[];
-  height?: number;
   color?: string;
-  accessibilityLabel?: string;
-  accessibilityDescription?: string;
 }
 
 export function BarChart({

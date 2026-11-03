@@ -1,9 +1,21 @@
 import { Suspense, useState } from "react";
 import { KpiCard } from "@visualforge/react";
-import { BarChart, LineChart, AreaChart, DonutChart, StackedBarChart } from "./LazyCharts";
+import { BarChart, LineChart, AreaChart, DonutChart, StackedBarChart, ScatterChart } from "./LazyCharts";
 import "./styles/studio.css";
 
 type Category = "all" | "metrics" | "charts";
+
+const scatterData = [
+  { x: 10, y: 18 },
+  { x: 15, y: 27 },
+  { x: 20, y: 25 },
+  { x: 25, y: 41 },
+  { x: 30, y: 39 },
+  { x: 35, y: 54 },
+  { x: 40, y: 62 },
+  { x: 45, y: 59 },
+  { x: 50, y: 78 },
+];
 
 const donutData = [
   { name: "Produtos", value: 44 },
@@ -43,7 +55,8 @@ const examples = [
 
   { id: "area", title: "Area Chart", category: "charts", description: "Time-series volume and trends" },
   { id: "donut", title: "Donut Chart", category: "charts", description: "Category shares and distribution" },
-  { id: "stacked", title: "Stacked Bar Chart", category: "charts", description: "Composition across periods" },] as const;
+  { id: "stacked", title: "Stacked Bar Chart", category: "charts", description: "Composition across periods" },
+  { id: "scatter", title: "Scatter Chart", category: "charts", description: "Explore relationships between variables" },] as const;
 
 const categories: { id: Category; label: string }[] = [
   { id: "all", label: "All Components" },
@@ -62,7 +75,7 @@ export default function App() {
   );
   const has = (id: string) => visible.some((item) => item.id === id);
   const hasMetrics = ["revenue", "users", "conversion"].some(has);
-  const hasCharts = ["bar", "line", "area", "donut", "stacked"].some((id) => has(id));
+  const hasCharts = ["bar", "line", "area", "donut", "stacked", "scatter"].some((id) => has(id));
   const chooseCategory = (next: Category) => {
     setCategory(next);
     setMenuOpen(false);
@@ -111,7 +124,7 @@ export default function App() {
             <span className="vf-preview-label">Library Preview</span>
           </div>
           <section className="vf-summary" aria-label="Library summary">
-            <div className="vf-summary-card"><span>Catalog examples</span><strong>{examples.length}</strong><small>6 reusable component types</small></div>
+            <div className="vf-summary-card"><span>Catalog examples</span><strong>{examples.length}</strong><small>7 reusable component types</small></div>
             <div className="vf-summary-card"><span>Categories</span><strong>02</strong><small>Metrics and charts</small></div>
             <div className="vf-summary-card"><span>Visible examples</span><strong>{visible.length}</strong><small>Matching current filters</small></div>
           </section>
@@ -145,6 +158,7 @@ export default function App() {
                 {has("area") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>TIME SERIES</small><h4>Area Chart</h4><p>Volume and performance trend</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><AreaChart data={chartData} accessibilityLabel="Monthly performance area chart" accessibilityDescription="Area visualization of the performance trend over time." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
                 {has("donut") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>DISTRIBUTION</small><h4>Donut Chart</h4><p>Share by category</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><DonutChart data={donutData} accessibilityLabel="Category distribution donut chart" accessibilityDescription="Distribution of values across categories." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
                 {has("stacked") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>COMPOSITION</small><h4>Stacked Bar Chart</h4><p>Channels by month</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><StackedBarChart data={stackedData} series={stackedSeries} accessibilityLabel="Monthly channel composition chart" accessibilityDescription="Stacked comparison of channels by month." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
+                {has("scatter") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>CORRELATION</small><h4>Scatter Chart</h4><p>Marketing investment vs conversions</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><ScatterChart data={scatterData} accessibilityLabel="Marketing investment and conversions scatter chart" accessibilityDescription="Relationship between marketing investment and conversions across nine observations." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
                 {has("line") && <article className="vf-chart-panel"><div className="vf-chart-heading"><div><small>TIME SERIES</small><h4>Line Chart</h4><p>Performance trend</p></div><span aria-hidden="true">CHART</span></div><div className="vf-chart-body"><LineChart data={chartData} accessibilityLabel="Monthly performance line chart" accessibilityDescription="Line visualization of the performance trend over time." /></div><div className="vf-chart-footer"><span>React / Recharts</span><span>Reusable</span></div></article>}
               </div>
               </Suspense>

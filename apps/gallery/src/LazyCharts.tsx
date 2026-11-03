@@ -29,3 +29,9 @@ export const StackedBarChart = lazy(() =>
     (module) => ({ default: module.StackedBarChart })
   )
 );
+
+export const ScatterChart = lazy(() =>
+  import("../../../packages/react/src/components/ScatterChart").then(
+    (module) => ({ default: module.ScatterChart })
+  )
+);
