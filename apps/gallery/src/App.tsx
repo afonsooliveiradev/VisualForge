@@ -4,6 +4,7 @@ import { BarChart, LineChart, AreaChart, DonutChart, StackedBarChart, ScatterCha
 import { KpiPlayground } from "./studio/KpiPlayground";
 import { BarChartPlayground } from "./studio/BarChartPlayground";
 import { LineChartPlayground } from "./studio/LineChartPlayground";
+import { AreaChartPlayground } from "./studio/AreaChartPlayground";
 import "./styles/studio.css";
 
 type Category = "all" | "metrics" | "charts";
@@ -129,6 +130,7 @@ export default function App() {
           <KpiPlayground />
           <BarChartPlayground />
           <LineChartPlayground />
+          <AreaChartPlayground />
           <section className="vf-summary" aria-label="Library summary">
             <div className="vf-summary-card"><span>Catalog examples</span><strong>{examples.length}</strong><small>7 reusable component types</small></div>
             <div className="vf-summary-card"><span>Categories</span><strong>02</strong><small>Metrics and charts</small></div>
