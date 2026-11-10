@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCodeClipboard } from "./useCodeClipboard";
 import "../styles/playground.css";
 import { KpiCard } from "@visualforge/react";
 import { generateKpiCode } from "./generateKpiCode";
@@ -14,22 +15,9 @@ const initialProps: KpiCardProps = {
 
 export function KpiPlayground() {
   const [props, setProps] = useState<KpiCardProps>(initialProps);
-  const [copyStatus, setCopyStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const { copyStatus, setCopyStatus, copyCode } = useCodeClipboard();
 
-  async function copyCode() {
-    try {
-      if (!navigator.clipboard?.writeText) {
-        throw new Error("Clipboard API unavailable");
-      }
 
-      await navigator.clipboard.writeText(generateKpiCode(props));
-      setCopyStatus("success");
-    } catch {
-      setCopyStatus("error");
-    }
-  }
 
   function update<K extends keyof KpiCardProps>(
     key: K,
@@ -122,7 +110,7 @@ export function KpiPlayground() {
           <span>React / TSX</span>
           <button
             type="button"
-            onClick={copyCode}
+            onClick={() => void copyCode(generateKpiCode(props))}
             aria-label="Copy generated code"
           >
             Copy Code
