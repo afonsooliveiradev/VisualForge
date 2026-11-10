@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useCodeClipboard } from "./useCodeClipboard";
+import { ChartCodePreview } from "./ChartCodePreview";
+import { ChartPlaygroundControls } from "./ChartPlaygroundControls";
 import { BarChart } from "@visualforge/react";
 import { generateBarChartCode } from "./generateBarChartCode";
 import type { ChartDataPoint } from "@visualforge/react";
@@ -21,9 +24,7 @@ export function BarChartPlayground() {
   );
   const [color, setColor] = useState(initialColor);
   const [height, setHeight] = useState(280);
-  const [copyStatus, setCopyStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const { copyStatus, setCopyStatus, copyCode } = useCodeClipboard();
 
   const generatedCode = generateBarChartCode({
     data,
@@ -33,18 +34,7 @@ export function BarChartPlayground() {
     accessibilityDescription: "Bar chart updated from playground controls.",
   });
 
-  async function copyCode() {
-    try {
-      if (!navigator.clipboard?.writeText) {
-        throw new Error("Clipboard API unavailable");
-      }
 
-      await navigator.clipboard.writeText(generatedCode);
-      setCopyStatus("success");
-    } catch {
-      setCopyStatus("error");
-    }
-  }
 
   function updatePoint(
     index: number,
@@ -86,76 +76,22 @@ export function BarChartPlayground() {
       </header>
 
       <div className="vf-playground">
-        <div className="vf-playground-controls">
-          <h3>Properties</h3>
-
-          <label>
-            Bar color
-            <input
-              type="color"
-              value={color}
-              onChange={(event) => {
-                setColor(event.target.value);
-                setCopyStatus("idle");
-              }}
-            />
-          </label>
-
-          <label>
-            Chart height
-            <input
-              type="number"
-              min={180}
-              max={600}
-              value={height}
-              onChange={(event) => {
-                const next = Number(event.target.value);
-
-                if (
-                  Number.isFinite(next) &&
-                  next >= 180 &&
-                  next <= 600
-                ) {
-                  setHeight(next);
-                  setCopyStatus("idle");
-                }
-              }}
-            />
-          </label>
-
-          <h3>Data points</h3>
-
-          {data.map((point, index) => (
-            <div className="vf-bar-point-editor" key={index}>
-              <label>
-                Category {index + 1}
-                <input
-                  type="text"
-                  value={point.name}
-                  onChange={(event) =>
-                    updatePoint(index, "name", event.target.value)
-                  }
-                />
-              </label>
-
-              <label>
-                Value {index + 1}
-                <input
-                  type="number"
-                  value={point.value}
-                  onChange={(event) =>
-                    updatePoint(index, "value", event.target.value)
-                  }
-                />
-              </label>
-            </div>
-          ))}
-
-          <button type="button" onClick={reset}>
-            Reset properties
-          </button>
-        </div>
-
+        <ChartPlaygroundControls
+          colorLabel="Bar color"
+          color={color}
+          height={height}
+          data={data}
+          onColorChange={(next) => {
+            setColor(next);
+            setCopyStatus("idle");
+          }}
+          onHeightChange={(next) => {
+            setHeight(next);
+            setCopyStatus("idle");
+          }}
+          onPointChange={updatePoint}
+          onReset={reset}
+        />
         <div className="vf-playground-preview">
           <h3>Live Preview</h3>
           <BarChart
@@ -168,31 +104,12 @@ export function BarChartPlayground() {
         </div>
       </div>
 
-      <div className="vf-code-preview">
-        <div className="vf-code-preview-heading">
-          <h3>Code Preview</h3>
-          <span>React / TSX</span>
-          <button
-            type="button"
-            onClick={copyCode}
-            aria-label="Copy generated Bar Chart code"
-          >
-            Copy Code
-          </button>
-        </div>
-
-        <pre>
-          <code>{generatedCode}</code>
-        </pre>
-
-        <p role="status" aria-live="polite" data-copy-status={copyStatus}>
-          {copyStatus === "success"
-            ? "Code copied successfully."
-            : copyStatus === "error"
-              ? "Unable to copy code."
-              : ""}
-        </p>
-      </div>
+      <ChartCodePreview
+        generatedCode={generatedCode}
+        copyStatus={copyStatus}
+        onCopy={() => copyCode(generatedCode)}
+        chartName="Bar Chart"
+      />
     </section>
   );
 }

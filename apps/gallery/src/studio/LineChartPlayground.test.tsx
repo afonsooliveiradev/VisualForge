@@ -57,6 +57,26 @@ describe("LineChartPlayground", () => {
     expect(screen.getByLabelText("Interactive line chart preview")).toBeTruthy();
   });
 
+  it("preserves the line chart accessibility description", () => {
+    const { container } = render(<LineChartPlayground />);
+
+    const description =
+      "Line chart updated from playground controls.";
+
+    const chart = screen.getByLabelText(
+      "Interactive line chart preview",
+    );
+
+    expect(chart.outerHTML).toContain(description);
+
+    const generatedCode = container.querySelector("code");
+
+    expect(generatedCode).not.toBeNull();
+    expect(generatedCode?.textContent).toContain(description);
+    expect(generatedCode?.textContent).not.toContain(
+      "Bar chart updated from playground controls.",
+    );
+  });
   it("copies generated TSX successfully", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
 
