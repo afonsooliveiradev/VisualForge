@@ -1,13 +1,21 @@
-import { Suspense, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
 import { KpiCard } from "@visualforge/react";
 import { BarChart, LineChart, AreaChart, DonutChart, StackedBarChart, ScatterChart } from "./LazyCharts";
 import { KpiPlayground } from "./studio/KpiPlayground";
-import { BarChartPlayground } from "./studio/BarChartPlayground";
-import { LineChartPlayground } from "./studio/LineChartPlayground";
-import { AreaChartPlayground } from "./studio/AreaChartPlayground";
+const BarChartPlayground = lazy(() => import("./studio/BarChartPlayground").then((m) => ({ default: m.BarChartPlayground })));
+const LineChartPlayground = lazy(() => import("./studio/LineChartPlayground").then((m) => ({ default: m.LineChartPlayground })));
+const AreaChartPlayground = lazy(() => import("./studio/AreaChartPlayground").then((m) => ({ default: m.AreaChartPlayground })));
 import "./styles/studio.css";
 
 type Category = "all" | "metrics" | "charts";
+type PlaygroundTab = "kpi" | "bar" | "line" | "area";
+
+const playgroundTabs: { id: PlaygroundTab; label: string }[] = [
+  { id: "kpi", label: "KPI" },
+  { id: "bar", label: "Bar" },
+  { id: "line", label: "Line" },
+  { id: "area", label: "Area" },
+];
 
 const scatterData = [
   { x: 10, y: 18 },
@@ -72,6 +80,38 @@ export default function App() {
   const [category, setCategory] = useState<Category>("all");
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activePlayground, setActivePlayground] = useState<PlaygroundTab>("kpi");
+  const playgroundTabRefs = useRef<Record<PlaygroundTab, HTMLButtonElement | null>>({
+    kpi: null,
+    bar: null,
+    line: null,
+    area: null,
+  });
+
+  function handlePlaygroundKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+    const currentIndex = playgroundTabs.findIndex((tab) => tab.id === activePlayground);
+
+    let nextIndex = currentIndex;
+
+    if (event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % playgroundTabs.length;
+    } else if (event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + playgroundTabs.length) % playgroundTabs.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = playgroundTabs.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+
+    const nextTab = playgroundTabs[nextIndex];
+
+    setActivePlayground(nextTab.id);
+    playgroundTabRefs.current[nextTab.id]?.focus();
+  }
 
   const visible = examples.filter((item) =>
     (category === "all" || item.category === category) &&
@@ -127,10 +167,53 @@ export default function App() {
             </div>
             <span className="vf-preview-label">Library Preview</span>
           </div>
-          <KpiPlayground />
-          <BarChartPlayground />
-          <LineChartPlayground />
-          <AreaChartPlayground />
+          <section className="vf-playground-workspace" aria-label="Component playground workspace">
+            <div className="vf-section-heading">
+              <div>
+                <h2>Component Playground</h2>
+                <p>Select a component to customize and preview.</p>
+              </div>
+              <span>INTERACTIVE</span>
+            </div>
+
+            <div className="vf-filters" role="tablist" aria-label="Playground components">
+              {playgroundTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  id={`vf-playground-tab-${tab.id}`}
+                  aria-selected={activePlayground === tab.id}
+                  aria-controls="vf-playground-panel"
+                  tabIndex={activePlayground === tab.id ? 0 : -1}
+                  className={`vf-filter ${activePlayground === tab.id ? "is-active" : ""}`}
+                  ref={(element) => {
+                    playgroundTabRefs.current[tab.id] = element;
+                  }}
+                  onKeyDown={handlePlaygroundKeyDown}
+                  onClick={() => setActivePlayground(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            <div
+              id="vf-playground-panel"
+              role="tabpanel"
+              aria-labelledby={`vf-playground-tab-${activePlayground}`}
+            >
+              {activePlayground === "kpi" ? (
+                <KpiPlayground />
+              ) : (
+                <Suspense fallback={<div role="status">Loading playground...</div>}>
+                  {activePlayground === "bar" && <BarChartPlayground />}
+                  {activePlayground === "line" && <LineChartPlayground />}
+                  {activePlayground === "area" && <AreaChartPlayground />}
+                </Suspense>
+              )}
+            </div>
+          </section>
           <section className="vf-summary" aria-label="Library summary">
             <div className="vf-summary-card"><span>Catalog examples</span><strong>{examples.length}</strong><small>7 reusable component types</small></div>
             <div className="vf-summary-card"><span>Categories</span><strong>02</strong><small>Metrics and charts</small></div>

@@ -27,3 +27,119 @@
 .vf-summary-card small,.vf-chart-footer,.vf-footer,.vf-section-heading>span{color:#94a3b8;font-size:12px}
 .vf-search input,.vf-chart-heading p{font-size:13px}
 .vf-nav-caption,.vf-brand small{color:#94a3b8}
+/* Sprint 05.10B.5K - Interactive Playground Workspace */
+
+.vf-playground-workspace {
+  min-width: 0;
+  margin-bottom: 40px;
+  padding: 28px;
+  border: 1px solid var(--vf-border, #334155);
+  border-radius: 20px;
+  background: var(--vf-surface, #101B2E);
+  box-shadow: var(--vf-shadow-card);
+}
+
+.vf-playground-workspace > .vf-section-heading {
+  margin-bottom: 24px;
+}
+
+.vf-playground-workspace .vf-section-heading h2 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.5px;
+}
+
+.vf-playground-workspace [role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--vf-border, #334155);
+}
+
+.vf-playground-workspace [role="tab"] {
+  min-height: 44px;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.vf-playground-workspace [role="tab"]:hover {
+  border-color: var(--vf-primary, #22D3EE);
+  color: var(--vf-text, #F8FAFC);
+}
+
+.vf-playground-workspace [role="tab"][aria-selected="true"] {
+  background: #12344a;
+  border-color: var(--vf-primary, #22D3EE);
+  color: var(--vf-primary, #22D3EE);
+}
+
+.vf-playground-workspace [role="tab"]:focus-visible {
+  outline: 2px solid var(--vf-primary, #22D3EE);
+  outline-offset: 3px;
+}
+
+.vf-playground-workspace [role="tabpanel"] {
+  min-width: 0;
+}
+
+.vf-playground-workspace [role="tabpanel"] > section {
+  min-width: 0;
+}
+
+.vf-playground-workspace [role="tabpanel"] > section > header {
+  margin-bottom: 20px;
+}
+
+.vf-playground-workspace [role="tabpanel"] > section > header h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.vf-playground-workspace [role="tabpanel"] > section > header p {
+  margin: 0;
+  color: var(--vf-text-muted, #94A3B8);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .vf-playground-workspace {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .vf-playground-workspace {
+    padding: 16px;
+    margin-bottom: 28px;
+  }
+
+  .vf-playground-workspace > .vf-section-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .vf-playground-workspace [role="tablist"] {
+    gap: 8px;
+  }
+
+  .vf-playground-workspace [role="tab"] {
+    flex: 1 1 calc(50% - 8px);
+    padding: 11px 12px;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf-playground-workspace [role="tab"] {
+    transition: none;
+  }
+}
