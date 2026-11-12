@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @visualforge/gallery",
-    "build": "npm run build -w @visualforge/gallery",
+    "build": "npm run build -w @visualforge/react && npm run build -w @visualforge/gallery",
     "test": "vitest run",
     "typecheck": "tsc -p apps/gallery/tsconfig.json --noEmit"
   },

@@ -6,12 +6,13 @@ This reference describes the current `@visualforge/react` workspace API in Visua
 
 ```tsx
 import {
-  KpiCard, BarChart, LineChart, AreaChart, DonutChart, StackedBarChart,
+  KpiCard, BarChart, LineChart, AreaChart, DonutChart, StackedBarChart, ScatterChart,
 } from '@visualforge/react';
 import type {
   KpiCardProps, ChartDataPoint, BarChartProps, LineChartProps,
   AreaChartProps, DonutDataPoint, DonutChartProps,
   StackedBarDataPoint, StackedBarSeries, StackedBarChartProps,
+  ScatterDataPoint, ScatterChartProps,
 } from '@visualforge/react';
 ```
 
@@ -122,9 +123,52 @@ interface StackedBarSeries {
 
 Each `series[].dataKey` should match a numeric field in the data. All series use the same stack group (`total`). If `data` or `series` is empty, the component displays `No data available`.
 
+## ScatterChart
+
+Displays relationships between numeric X and Y values.
+
+### Data type
+
+    interface ScatterDataPoint {
+      x: number;
+      y: number;
+      name?: string;
+    }
+
+### Props
+
+| Prop | Type | Required | Default |
+| --- | --- | --- | --- |
+| `data` | `ScatterDataPoint[]` | Yes | - |
+| `height` | `number` | No | `280` |
+| `color` | `string` | No | `#22D3EE` |
+| `accessibilityLabel` | `string` | No | `"Scatter chart"` |
+| `accessibilityDescription` | `string` | No | Not defined |
+
+### Example
+
+    <ScatterChart
+      data={[
+        { x: 10, y: 20, name: "A" },
+        { x: 30, y: 40, name: "B" },
+      ]}
+      accessibilityLabel="Sales correlation"
+      accessibilityDescription="Relationship between numeric measures"
+    />
+
+### Behavior
+
+The component filters data before rendering. Tests confirm that non-finite coordinates are excluded in the evaluated scenarios.
+
+If no valid points remain, the component displays `No data available`.
+
+The chart supports an accessible label and an optional accessibility description.
+
+It uses Recharts `ResponsiveContainer`, so its parent must provide usable width.
+
 ## Current alpha limitations
 
-- The package is private and exports TypeScript source files, not a built npm distribution.
+- The package remains private and is not published to npm. Its exports reference compiled JavaScript and TypeScript declarations in `dist`.
 - Empty-state behavior is not yet consistent across all chart types.
 - Data validation is limited; callers should supply correctly typed and meaningful data.
 - The chart implementations currently expose a small set of customization props.

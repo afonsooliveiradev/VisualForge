@@ -38,8 +38,9 @@ Build executive dashboards with reusable KPI cards.
 | `AreaChart` | Show trends and magnitude |
 | `DonutChart` | Display composition and proportions |
 | `StackedBarChart` | Compare multiple series per category |
+| `ScatterChart` | Explore relationships between numeric variables |
 
-Explore all six component types in **VisualForge Studio**, the interactive gallery in `apps/gallery`.
+Explore all seven component types in **VisualForge Studio**, the interactive gallery in `apps/gallery`.
 
 ## Requirements
 
@@ -52,6 +53,7 @@ Explore all six component types in **VisualForge Studio**, the interactive galle
 git clone https://github.com/afonsooliveiradev/VisualForge.git
 cd VisualForge
 npm ci
+npm run build -w @visualforge/react
 npm run dev
 ```
 
@@ -108,6 +110,7 @@ examples/          Integration examples
 ## Quality checks
 
 ```bash
+npm run build -w @visualforge/react
 npm run typecheck
 npm test
 npm run build
@@ -117,7 +120,7 @@ npm audit
 ## Current limitations
 
 - `@visualforge/react` is currently a private workspace package and cannot be installed from the npm registry.
-- Package exports currently reference TypeScript source files; a distributable JavaScript build and declaration files are not yet configured.
+- Package exports reference compiled JavaScript and TypeScript declarations in `dist`; build the library before consuming it from a fresh workspace checkout.
 - Component APIs, accessibility, and test coverage are evolving during the alpha phase.
 
 ## Contributing

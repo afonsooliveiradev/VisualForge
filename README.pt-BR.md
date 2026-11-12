@@ -44,6 +44,7 @@ Construa dashboards executivos com cartões de indicadores reutilizáveis.
 | `AreaChart` | Tendências com área preenchida |
 | `DonutChart` | Composição e proporções |
 | `StackedBarChart` | Comparação de séries empilhadas |
+| `ScatterChart` | Relações entre variáveis numéricas |
 
 ## Requisitos
 
@@ -55,6 +56,7 @@ Node.js 24, npm 11 e Git.
 git clone https://github.com/afonsooliveiradev/VisualForge.git
 cd VisualForge
 npm ci
+npm run build -w @visualforge/react
 npm run dev
 ```
 
@@ -63,6 +65,7 @@ Abra o endereço local exibido pelo Vite. A galeria interativa fica em `apps/gal
 ## Verificações de qualidade
 
 ```bash
+npm run build -w @visualforge/react
 npm run typecheck
 npm test
 npm run build
@@ -79,7 +82,7 @@ npm audit
 ## Limitações atuais
 
 - A biblioteca ainda é um pacote privado de workspace, não instalável pelo registro npm.
-- Os exports apontam para arquivos TypeScript; ainda falta um build de distribuição com declarações de tipos.
+- Os exports apontam para JavaScript compilado e declarações TypeScript em `dist`; após uma instalação limpa, compile a biblioteca antes de utilizá-la.
 - A acessibilidade, validação de dados e cobertura de testes estão evoluindo.
 
 ## Comunidade e licença
