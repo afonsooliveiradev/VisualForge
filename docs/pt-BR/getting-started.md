@@ -33,7 +33,17 @@ npm ci
 
 O comando instala as dependências registradas no arquivo de lock.
 
-## 4. Abrir a galeria
+## 4. Compilar a biblioteca
+
+Após instalar as dependências, compile a biblioteca React:
+
+```bash
+npm run build -w @visualforge/react
+```
+
+Esse comando gera os arquivos JavaScript e as declarações TypeScript em `packages/react/dist`.
+
+## 5. Abrir a galeria
 
 ```bash
 npm run dev
@@ -41,9 +51,10 @@ npm run dev
 
 Abra no navegador o endereço informado pelo Vite. Para parar, pressione `Ctrl+C` no terminal.
 
-## 5. Conferir a qualidade
+## 6. Conferir a qualidade
 
 ```bash
+npm run build -w @visualforge/react
 npm run typecheck
 npm test
 npm run build
@@ -51,9 +62,9 @@ npm run build
 
 - `typecheck`: verifica os tipos TypeScript.
 - `test`: executa os testes automatizados.
-- `build`: gera a versão de produção da galeria.
+- `build`: compila a biblioteca React e gera a versão de produção da galeria.
 
-## 6. Conhecer os componentes
+## 7. Conhecer os componentes
 
 Leia a [referência técnica em português](components.md). Para contribuir, siga o [guia de contribuição](../../CONTRIBUTING.pt-BR.md).
 
