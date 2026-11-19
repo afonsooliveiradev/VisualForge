@@ -25,6 +25,7 @@ vi.mock("./LazyCharts", async () => {
     DonutChart: MockChart,
     StackedBarChart: MockChart,
     ScatterChart: MockChart,
+  GaugeChart: MockChart,
   };
 });
 
@@ -179,11 +180,11 @@ describe("VisualForge Component Studio", () => {
     render(<App />);
 
     expect(
-      screen.getByText("9", {
+      screen.getByText("10", {
         selector: ".vf-summary-card:first-child strong",
       })
     ).toBeTruthy();
-    expect(screen.getByText("7 reusable component types")).toBeTruthy();
+    expect(screen.getByText("8 reusable component types")).toBeTruthy();
     expect(screen.getByRole("heading", {
       name: "Component Studio",
     })).toBeTruthy();
