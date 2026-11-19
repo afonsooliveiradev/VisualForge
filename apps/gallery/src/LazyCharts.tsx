@@ -35,3 +35,9 @@ export const ScatterChart = lazy(() =>
     (module) => ({ default: module.ScatterChart })
   )
 );
+
+export const GaugeChart = lazy(() =>
+  import("../../../packages/react/src/components/GaugeChart").then(
+    (module) => ({ default: module.GaugeChart })
+  )
+);

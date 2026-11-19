@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCodeClipboard } from "./useCodeClipboard";
 import "../styles/playground.css";
-import { KpiCard } from "@visualforge/react";
+import { KpiCard } from "../../../../packages/react/src/components/KpiCard";
 import { generateKpiCode } from "./generateKpiCode";
 import type { KpiCardProps } from "@visualforge/react";
 

@@ -22,3 +22,6 @@ export type { StackedBarChartProps, StackedBarDataPoint, StackedBarSeries } from
 export { ScatterChart } from "./components/ScatterChart";
 export type { ScatterChartProps } from "./components/ScatterChart";
 export type { ScatterDataPoint } from "./types/chart";
+
+export { GaugeChart } from "./components/GaugeChart";
+export type { GaugeChartProps } from "./components/GaugeChart";
