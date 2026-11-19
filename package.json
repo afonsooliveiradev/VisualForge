@@ -11,7 +11,8 @@
     "dev": "npm run dev -w @visualforge/gallery",
     "build": "npm run build -w @visualforge/react && npm run build -w @visualforge/gallery",
     "test": "vitest run",
-    "typecheck": "tsc -p apps/gallery/tsconfig.json --noEmit"
+    "typecheck": "tsc -p apps/gallery/tsconfig.json --noEmit",
+    "verify:external": "node scripts/verify-external-consumer.mjs"
   },
   "devDependencies": {
     "@testing-library/react": "16.3.3",
